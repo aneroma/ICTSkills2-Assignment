@@ -1,36 +1,16 @@
-import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 import React from "react";
-import PageTemplate from "../components/templateMovieListPage";
-import { useQuery } from 'react-query'
-import Spinner from '../components/spinner'
-import {getMovies} from '../api/tmdb-api'
+import Header from "../components/headerMovieList";
+import MovieList from "../components/movieList";
+import FilterControls from "../components/filterControls";
 
-const HomePage = (props) => {
-  const {  data, error, isLoading, isError }  = useQuery('discover', getMovies)
-
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  if (isError) {
-    return <h1>{error.message}</h1>
-  }  
-  const movies = data.results;
-
-  // Redundant, but necessary to avoid app crashing.
-  const favorites = movies.filter(m => m.favorite)
-  localStorage.setItem('favorites', JSON.stringify(favorites))
-  const addToFavorites = (movieId) => true 
-
+const MovieListPage = ({movies}) => {
   return (
-    <PageTemplate
-      title="Discover Movies"
-      movies={movies}
-      action={(movie) => {
-        return <AddToFavoritesIcon movie={movie} />
-      }}
-    />
-);
+    <>
+      <Header numMovies={movies.length} />
+      <FilterControls />
+      <MovieList movies={movies} />
+    </>
+  );
 };
 
-export default HomePage;
+export default MovieListPage;
