@@ -1,15 +1,13 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
-import PageTemplate from "../components/templateMoviePage";
+import PageTemplate from '../components/templateMoviePage'
 import MovieReview from "../components/movieReview";
 
 const MovieReviewPage = (props) => {
-  const {movie, review} = props.location.state
   return (
-    <PageTemplate movie={movie}>
-      <MovieReview review={review} />
-    </PageTemplate>
+      <PageTemplate movie={props.location.state.movie}>
+        <MovieReview review={props.location.state.review} /> 
+      </PageTemplate>
   );
 };
 
-export default withRouter(MovieReviewPage);
+export default MovieReviewPage;

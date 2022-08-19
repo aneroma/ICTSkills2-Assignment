@@ -1,67 +1,49 @@
-import React, { useEffect, useState }  from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getMovieReviews } from "../../api/tmdb-api";
-import { excerpt } from "../../utils";
+import { excerpt } from "../../util";
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 550,
-  },
-});
-
-export default function MovieReviews({ movie }) {
-  const classes = useStyles();
+export default ({ movie }) => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    getMovieReviews(movie.id).then((reviews) => {
+    getMovieReviews(movie.id).then(reviews => {
       setReviews(reviews);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="reviews table">
-        <TableHead>
-          <TableRow>
-            <TableCell >Author</TableCell>
-            <TableCell align="center">Excerpt</TableCell>
-            <TableCell align="right">More</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {reviews.map((r) => (
-            <TableRow key={r.id}>
-              <TableCell component="th" scope="row">
-                {r.author}
-              </TableCell>
-              <TableCell >{excerpt(r.content)}</TableCell>
-              <TableCell >
-                <Link
-                  to={{
-                    pathname: `/reviews/${r.id}`,
-                    state: {
-                      review: r,
-                      movie: movie,
-                    },
-                  }}
-                >
-                  Full Review
-                </Link>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <table className="table table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Author</th>
+          <th scope="col">Excerpt</th>
+          <th scope="col">More</th>
+        </tr>
+      </thead>
+      <tbody>
+        {reviews.map(r => {
+            return (
+              <tr key={r.id}>
+                <td>{r.author}</td>
+                <td>{excerpt(r.content)}</td>
+                <td>
+                  {" "}
+                  <Link
+                    to={{
+                      pathname: `/reviews/${r.id}`,
+                      state: {
+                        review: r,
+                        movie: movie
+                      }
+                    }}
+                  >
+                    Full Review
+                  </Link>
+                </td>
+              </tr>
+            );
+          })}
+      </tbody>
+    </table>
   );
-}
+}; 
