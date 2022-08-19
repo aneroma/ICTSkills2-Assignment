@@ -74,7 +74,8 @@ export default ({ movie}) => {
                   {lang.name}
                 </li>
               ))}
-            </ul></td></tr>
+            </ul></td>
+            </tr>
             <tr>
               <th>Production Companies <Icon name="factory"></Icon></th>
               <td><ul>
