@@ -5,7 +5,15 @@ import "./moviePage.css";
 
 const MoviePage = props => {
   const { id } = props.match.params;
-  const [movie] = useMovie(id)  // NEW
+  const [movie, setMovie] = useState(null)
+  useEffect(() => {
+    fetch(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    ).then(res => res.json())    
+    .then(movie => {
+      setMovie(movie);
+    })
+  }, [id])
   return (
     <>
     {movie ? (
