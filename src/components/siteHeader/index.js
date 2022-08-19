@@ -1,111 +1,51 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
+import React from "react";
+import { Link } from "react-router-dom";
+import "../../globals/fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./siteHeader.css";
 
-import MenuIcon from "@material-ui/icons/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import { withRouter } from "react-router-dom";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-
-const useStyles = makeStyles((theme) => ({
-  title: {
-    flexGrow: 1,
-  },
-  offset: theme.mixins.toolbar,
-}));
-
-const SiteHeader = ( { history }) => {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
-  const menuOptions = [
-    { label: "Home", path: "/" },
-    { label: "Favorites", path: "/movies/favorites" },
-    { label: "Option 3", path: "/" },
-    { label: "Option 4", path: "/" },
-  ];
-
-  const handleMenuSelect = (pageURL) => {
-    history.push(pageURL);
-  };
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
+const SiteHeader = () => {
   return (
-    <>
-      <AppBar position="fixed" color="secondary">
-        <Toolbar>
-          <Typography variant="h4" className={classes.title}>
-            TMDB Client
-          </Typography>
-          <Typography variant="h6" className={classes.title}>
-            All you ever wanted to know about Movies!
-          </Typography>
-            {isMobile ? (
-              <>
-                <IconButton
-                  aria-label="menu"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={open}
-                  onClose={() => setAnchorEl(null)}
-                >
-                  {menuOptions.map((opt) => (
-                    <MenuItem
-                      key={opt.label}
-                      onClick={() => handleMenuSelect(opt.path)}
-                    >
-                      {opt.label}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </>
-            ) : (
-              <>
-                {menuOptions.map((opt) => (
-                  <Button
-                    key={opt.label}
-                    color="inherit"
-                    onClick={() => handleMenuSelect(opt.path)}
-                  >
-                    {opt.label}
-                  </Button>
-                ))}
-              </>
-            )}
-        </Toolbar>
-      </AppBar>
-      <div className={classes.offset} />
-    </>
+    <nav className="navbar  navbar-light fixed-top  bg-dark ">
+      <nav className="navbar-brand text-white">
+        <Link className=" text-white" to="/">
+          TMDB Client
+        </Link>
+      </nav>
+      <FontAwesomeIcon
+        className="navbar-text text-light"
+        icon={["fas", "video"]}
+        size="3x"
+      />
+      <span className="navbar-text text-light">
+        For the movie enthusiast !!
+      </span>
+      <FontAwesomeIcon
+        className="navbar-text text-light"
+        icon={["fas", "film"]}
+        size="3x"
+      />
+      <nav className="navbar navbar-expand ">
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <Link className="nav-link text-white" to="/">
+              Home
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link text-white" to="/movies/upcoming">
+              Up Coming
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link text-white" to="/movies/favorites">
+              Favorites
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    </nav>
   );
 };
 
-export default withRouter(SiteHeader);
+export default SiteHeader; 

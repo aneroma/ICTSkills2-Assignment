@@ -4,11 +4,13 @@ import "./headerMovieList.css";
 
 const Header = ({ title, numMovies }) => {
   return (
-    <div>
-      <Container textAlign="center" id="movieBadge">
-      {`${title}  `}
-      <span className="badge badge-pill badge-dark">{numMovies}</span>
-      </Container>
+    <div className="row">
+    <div className="col-md-6 offset-4">
+      <h2>
+        {`${title}  `}
+        <span className="badge badge-pill badge-success">{numMovies}</span>
+      </h2>
+    </div>
     </div>
   );
 };

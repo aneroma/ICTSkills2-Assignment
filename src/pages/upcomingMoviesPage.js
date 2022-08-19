@@ -1,34 +1,33 @@
-import React from "react";
-import MovieListPageTemplate from "../components/templateMovieListPage";
-import { getUpcoming } from "../api/tmdb-api";
-import { useQuery } from 'react-query'
-import Spinner from '../components/spinner'
-//import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
-import AddToWatchIcon from '../components/cardIcons/addToWatchList';
+import React, { useState, useEffect } from "react";
+import StubAPI from "../api/stubAPI";
+import PageTemplate from '../components/templateMovieListPage'
+import { getUpcomingMovies } from "../api/tmdb-api";
 
-const UpCoomingMoviesPage = (props) => {
-  const {  data, error, isLoading, isError }  = useQuery('upcoming', getUpcoming)
+const MovieListPage = () => {
+  const [movies, setMovies] = useState([]);
+  useEffect(() => {
+    getUpcomingMovies().then(movies => {
+      setMovies(movies);
+    });
+  }, []);
 
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  if (isError) {
-    return <hi>{error.message}</hi>
-  }
-  const movies = data.results;
-
-  const favorites = movies.filter(m => m.favorite)
-  localStorage.setItem('favorites', JSON.stringify(favorites))
+  const addToFavorites = movieId => {
+    setMovies(movies => {
+      const index = movies.map(m => m.id).indexOf(movieId);
+      StubAPI.add(movies[index]);
+      let newMoviesState = [...movies]
+      newMoviesState.splice(index, 1);
+      return newMoviesState;
+    });
+  };
 
   return (
-    <PageTemplate
-      title='Upcoming Movies'
-      movies={movies}
-      action={(movie) => {
-        return <AddToWatchIcon movie={movie} />
-      }}
-    />
+      <PageTemplate
+        title='Upcoming Movies'
+        movies={movies}
+        buttonHandler={addToFavorites}
+      />
   );
-    };
-    export default UpCoomingMoviesPage;
+};
+
+export default MovieListPage; 
