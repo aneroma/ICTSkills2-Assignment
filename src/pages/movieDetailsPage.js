@@ -7,12 +7,7 @@ import MovieReviews from "../components/movieReviews"
 
 const MoviePage = props => {
   const { id } = props.match.params;
-  const [movie, setMovie] = useState(null)
-  useEffect(() => {
-    getMovie(id).then(movie => {
-      setMovie(movie);
-    });
-  }, [id]);
+  const [movie] = useMovie(id)  // NEW
   return (
     <>
     {movie ? (
