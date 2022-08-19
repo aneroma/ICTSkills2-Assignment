@@ -1,36 +1,52 @@
-import React from "react";
+import React, {useState, useEffect}  from "react";
 import MovieHeader from "../components/headerMovie";
 import MovieDetails from "../components/movieDetails";
 import "./moviePage.css";
 
-const MoviePage = ({ movie }) => {
+const MoviePage = props => {
+  const { id } = props.match.params;
+  const [movie] = useMovie(id)  // NEW
   return (
     <>
-      {movie ? (
-        <>
-          <MovieHeader movie={movie} />
-          <div className="row">
-            <div className="col-3">
-              <img
-                src={
-                  movie.poster_path
-                    ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                    : "./film-poster-placeholder.png"
-                }
-                className="movie"
-                alt={movie.title}
-              />
-            </div>
-            <div className="col-9">
-              <MovieDetails movie={movie} />
-            </div>
-          </div>
-        </>
-        ) : (
-        <p>Waiting for movie details</p>
-      )}
-    </>
+    {movie ? (
+      <>
+        <PageTemplate movie={movie}>
+          <MovieDetails movie={movie} />
+        </PageTemplate>
+        <div className="row">
+        <ActorsView movie={movie}  {...props}/>
+          <Container textAlign="center">
+          <Divider horizontal><span><h2>Reviews</h2></span></Divider>
+            {!props.history.location.pathname.endsWith("/reviews") ? (
+              
+              <Link
+                to={`/movies/${id}/reviews`}
+              >
+              <Button inverted color='olive'>
+              Show Reviews (Extracts)
+              </Button>
+              </Link>
+              
+            ) : (
+              <Link
+                to={`/movies/${id}`}
+              >
+              <Button inverted color='olive'>
+                Hide Reviews 
+              </Button>
+              </Link>
+            )}
+          </Container>
+        </div>
+        <Route
+          path={`/movies/:id/reviews`}
+          render={props => <MovieReviews movie={movie} {...props} />}
+        />
+      </>
+    ) : (
+      <p>Waiting for movie details</p>
+    )}
+  </>
   );
 };
-
-export default MoviePage; 
+export default withRouter(MoviePage);
