@@ -9,7 +9,8 @@ const FilterControls = props => {
   const handleChange = (e, type, value) => {
     e.preventDefault();
     props.onUserInput(type, value);
-  };
+  }; // filetring of movie list
+  
   const handleTextChange = e => {
     handleChange(e, "name", e.target.value);
   };
