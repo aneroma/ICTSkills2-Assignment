@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "./filterControls.css";
 import { GenresContext } from '../../contexts/genresContext' 
 import {Menu,Input,Icon} from 'semantic-ui-react'
+import { getGenres } from "../../api/tmdb-api";
 
 const FilterControls = props => {
   const context = useContext(GenresContext);
@@ -10,7 +11,7 @@ const FilterControls = props => {
     e.preventDefault();
     props.onUserInput(type, value);
   }; // filetring of movie list
-  
+
   const handleTextChange = e => {
     handleChange(e, "name", e.target.value);
   };

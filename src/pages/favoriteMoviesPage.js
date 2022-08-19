@@ -1,16 +1,17 @@
 import React from "react";
+import StubAPI from "../api/stubAPI";
 import PageTemplate from "../components/templateMovieListPage";
-import { MoviesContext } from "../contexts/moviesContext";
-import { useQueries } from "react-query";
-import { getMovie } from "../api/tmdb-api";
-import Spinner from '../components/spinner'
-import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
-import WriteReview from "../components/cardIcons/writeReview";
 
-import React from "react";
+const FavoriteMoviesPage = props => {
+  const toDo = () => true;
 
-const FavoriteMoviesPage = () => {
-    return <h2>Favorite Movies</h2>
-}
+  return (
+    <PageTemplate
+      movies={StubAPI.getAll()}
+      title={"Favorite Movies"}
+      buttonHandler={toDo}
+    />
+  );
+};
 
-export default FavoriteMoviesPage
+export default FavoriteMoviesPage;

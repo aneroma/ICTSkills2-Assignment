@@ -1,28 +1,21 @@
 import React, { useState } from "react";
 import Header from "../headerMovieList";
-import FilterCard from "../filterMoviesCard";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
 import MovieList from "../movieList";
+import FilterControls from "../filterControls";
 
-const useStyles = makeStyles({
-  root: {
-    padding: "20px",
-  },
-});
 
-function MovieListPageTemplate({ movies, title, action }) {
-  const classes = useStyles();
+const MovieListPageTemplate = ({movies, title, buttonHandler}) => {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
-  const genreId = Number(genreFilter);
-
+  const genre = Number(genreFilter)
   let displayedMovies = movies
-    .filter((m) => {
+    .filter(m => {
       return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
     })
-    .filter((m) => {
-      return genreId > 0 ? m.genre_ids.includes(genreId) : true;
+    .filter(m => {
+      return  genre > 0
+        ? m.genre_ids.includes(Number(genreFilter))
+        : true;
     });
 
   const handleChange = (type, value) => {
@@ -31,21 +24,15 @@ function MovieListPageTemplate({ movies, title, action }) {
   };
 
   return (
-    <Grid container className={classes.root}>
-      <Grid item xs={12}>
-        <Header title={title} />
-      </Grid>
-      <Grid item container spacing={5}>
-        <Grid key="find" item xs={12} sm={6} md={4} lg={3} xl={2}>
-          <FilterCard
-            onUserInput={handleChange}
-            titleFilter={nameFilter}
-            genreFilter={genreFilter}
-          />
-        </Grid>
-        <MovieList action={action} movies={displayedMovies}></MovieList>
-      </Grid>
-    </Grid>
+    <>
+      <Header title={title} numMovies={displayedMovies.length} />
+      <FilterControls onUserInput={handleChange} numMovies={displayedMovies.length}/>
+      <MovieList
+        buttonHandler={buttonHandler}
+        movies={displayedMovies}
+      ></MovieList>
+    </>
   );
-}
-export default MovieListPageTemplate;
+};
+
+export default MovieListPageTemplate ;
