@@ -1,38 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import StubAPI from "../api/stubAPI";
+import { getMovies } from "../api/tmdb-api";
 
-export const MoviesContext = React.createContext(null);
+export const MoviesContext = React.createContext(null)
 
-const MoviesContextProvider = (props) => {
-    const [myReviews, setMyReviews] = useState( {} ) 
-    const [favorites, setFavorites] = useState( {} ) 
-    const [mustWatch, setMustWatch] = useState( {} ) 
+const MoviesContextProvider = props => {
+  const [movies, setMovies] = useState([]);
 
-    const addToFavorites = (movie) => {
-    setFavorites([...favorites,movie.id])
+  const addToFavorites = movieId => {
+    setMovies(movies => {
+      const index = movies.map(m => m.id).indexOf(movieId);
+      StubAPI.add(movies[index])
+      movies.splice(index, 1)
+      return [...movies]
+    });
   };
-  // We will use this function in a later section
-  
-  const removeFromFavorites = (movie) => {
-    setFavorites( favorites.filter(
-      (mId) => mId !== movie.id
-    ) )
-  };
-  const addReview = (movie, review) => {
-    setMyReviews( {...myReviews, [movie.id]: review } )
-  };
-  const addToWatch = (movie) => {
-    setMustWatch([...mustWatch, movie.id])
-    console.log(mustWatch);
-};
+  useEffect(() => {
+    getMovies().then(movies => {
+      setMovies(movies);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-return (
+  return (
     <MoviesContext.Provider
       value={{
-        favorites,
-        addToFavorites,
-        removeFromFavorites,
-        addReview,
-        addToWatch,
+        movies: movies,
+        addToFavorites: addToFavorites
       }}
     >
       {props.children}
