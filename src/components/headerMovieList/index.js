@@ -1,38 +1,16 @@
-import { withRouter } from "react-router-dom";
 import React from "react";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+import { Container } from "semantic-ui-react";
+import "./headerMovieList.css";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "space-around",
-    flexWrap: "wrap",
-    marginBottom: theme.spacing(1.5),
-  },
-}));
-
-const Header = ({ title, history }) => {
-  const classes = useStyles();
-  
+const Header = ({ title, numMovies }) => {
   return (
-    <Paper component="div" className={classes.root}>
-   <IconButton aria-label="go back" onClick={() => history.goBack()}>
-        <ArrowBackIcon color="primary" fontSize="large" />
-      </IconButton>
-
-      <Typography variant="h4" component="h3">
-        {title}
-      </Typography>
-      <IconButton aria-label="go forward" onClick={() => history.goForward()}>
-        <ArrowForwardIcon color="primary" fontSize="large" />
-      </IconButton>
-    </Paper>
+    <div>
+      <Container textAlign="center" id="movieBadge">
+      {`${title}  `}
+      <span className="badge badge-pill badge-dark">{numMovies}</span>
+      </Container>
+    </div>
   );
 };
 
-export default withRouter(Header);
+export default Header;
