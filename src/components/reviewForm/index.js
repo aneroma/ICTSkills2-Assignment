@@ -44,13 +44,12 @@ const ReviewForm = ({ movie, history }) => {
       {errors.content && (
         <p className="text-white">{errors.content.message} </p>
       )}
-
-      <button type="submit" className="btn btn-primary">
+<button type="submit" style={{marginRight:15}} className="btn btn-outline-secondary">
         Submit
       </button>
       <button
         type="reset"
-        className="btn btn-primary reset"
+        className="btn btn-outline-secondary"
         onClick={() => {
           reset({
             author: "",

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import "./filterControls.css";
 import { GenresContext } from '../../contexts/genresContext' 
 import {Menu,Input,Icon} from 'semantic-ui-react'
-import { getGenres } from "../../api/tmdb-api";
+import { faRubleSign } from "@fortawesome/free-solid-svg-icons";
+
 
 const FilterControls = props => {
   const context = useContext(GenresContext);
