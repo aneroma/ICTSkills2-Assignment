@@ -10,7 +10,6 @@ import upComingMoviesPage from './pages/upComingMoviesPage'
 import topRatedMoviesPage from './pages/topRatedMoviesPage'
 import AddMovieReviewPage from './pages/addMovieReviewPage'
 import MovieReviewPage from "./pages/movieReviewPage";
-import AddMovieReviewPage from './pages/addMovieReviewPage'
 import SiteHeader from './components/siteHeader'
 import MoviesContextProvider from "./contexts/moviesContext";
 import GenresContextProvider from "./contexts/genresContext";

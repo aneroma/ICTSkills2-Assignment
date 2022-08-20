@@ -5,7 +5,13 @@ export const getMovies = () => {
     .then(res => res.json())
     .then(json => json.results);
 };
-
+export const getUpComingMovies = () => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
+    )
+    .then(res => res.json())
+    .then(json => json.results);
+};
 export const getMovie = id => {
   return fetch(
     `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMDB_KEY}`
@@ -21,12 +27,15 @@ export const getGenres = () => {
     .then(res => res.json())
     .then(json => json.genres);
 }; 
-  export const getRecommendations = id => {
-    return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${process.env.REACT_APP_TMDB_KEY}`
-    ).then(res => res.json())
-    .then(json => json.results);
-  };
+
+
+export const getRecommendations = id => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${process.env.REACT_APP_TMDB_KEY}`
+  ).then(res => res.json())
+  .then(json => json.results);
+};
+
 
   export const getMovieImages = async ({ queryKey }) => {
     // eslint-disable-next-line no-unused-vars
@@ -51,10 +60,3 @@ export const getGenres = () => {
       });
   };
   
-  export const getUpComingMovies = () => {
-    return fetch(
-      `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
-      )
-      .then(res => res.json())
-      .then(json => json.results);
-  };

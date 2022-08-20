@@ -7,6 +7,6 @@ const MovieList = ({movies, action}) => {
   const movieCards = movies.map(m => (
     <Movie key={m.id} movie={m} action={action} />
   ));
-  return <div className="row rounded movies" style={{backgroundColor:"#3B3B3B"}}>{movieCards}</div>;
+  return <div style={{marginTop:20}}><Card.Group>{movieCards}</Card.Group></div>;
 };
 export default MovieList;
