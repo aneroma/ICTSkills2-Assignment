@@ -8,7 +8,7 @@ import AddToWatchLater from '../components/buttons/addToWatchLater'
 const MovieListPage = () => {
   const context = useContext(MoviesContext);
   const movies = context.upcoming.filter((m) => {  // New
-    return !("favorite" in m);
+    return !("watchlater" in m);
   });
 
   return (
