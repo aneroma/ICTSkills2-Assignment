@@ -6,25 +6,13 @@ import { useQuery } from "react-query";
 import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 
-const WriteReviewPage = (props) => {
-  const { movieId } = props.location.state;
-  const { data: movie, error, isLoading, isError } = useQuery(
-    ["movie", { id: movieId }],
-    getMovie
-  );
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+const ReviewFormPage = props => {
 
-  if (isError) {
-    return <h1>{error.message}</h1>;
-  }
   return (
-    <PageTemplate movie={movie}>
-      <ReviewForm movie={movie} />
-    </PageTemplate>
+      <PageTemplate movie={props.location.state.movie}>
+          <ReviewForm movie={props.location.state.movie} />
+      </PageTemplate>
   );
 };
-
-export default withRouter(WriteReviewPage);
+export default ReviewFormPage; 

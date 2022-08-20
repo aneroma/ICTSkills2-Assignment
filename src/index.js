@@ -8,6 +8,7 @@ import MoviePage from './pages/movieDetailsPage'
 import FavoriteMoviesPage from './pages/favoritesMoviesPage'
 import upComingMoviesPage from './pages/upComingMoviesPage'
 import topRatedMoviesPage from './pages/topRatedMoviesPage'
+import AddMovieReviewPage from './pages/addMovieReviewPage'
 import MovieReviewPage from "./pages/movieReviewPage";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
 import SiteHeader from './components/siteHeader'
