@@ -17,7 +17,7 @@ const SiteHeader = () => {
       </nav>
       <Icon name="video" size='large' id = "white"></Icon>
       <span className="navbar-text text-light">
-        For Movie Enthusiast
+        For Movie Lover
       </span>
       <Icon name="film" size='large'  id = "white"></Icon>
       <nav className="navbar navbar-expand ">
