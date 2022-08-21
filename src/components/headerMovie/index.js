@@ -1,8 +1,6 @@
 import React from "react";
 import "./headerMovie.css";
 import "../../globals/fontawesome";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../../globals/fontawesome";
 import {Icon,Grid,Header} from 'semantic-ui-react'
 
 const MovieHeader = ({ movie }) => {

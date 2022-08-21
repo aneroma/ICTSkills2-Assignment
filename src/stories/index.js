@@ -10,6 +10,9 @@ import GenresContextProvider from "../src/contexts/genresContext";
 import { action } from "@storybook/addon-actions";
 import "semantic-ui-css/semantic.min.css";
 import MovieReviews from "../src/components/movieReviews";
+import RecommendedCard from "../src/components/recommendedCard";
+import "semantic-ui-css/semantic.min.css";
+import {Card,Icon, Image,Reveal, Segment,Container,Header,Button,Divider } from 'semantic-ui-react'
 
 const sample = {
     adult: false,
@@ -141,15 +144,21 @@ storiesOf("Home Page/MovieCard", module)
             );
           });
         
-          storiesOf("Movie Details Page/MovieDetails", module).add("default", () => (
-            <MovieDetails movie={sample} />
+          storiesOf("Movie Details Page/MovieDetails", module).
+  add("default", () => (
+    <MemoryRouter><MovieDetails movie={sample} /></MemoryRouter>
           ));
           storiesOf("Movie Details Page/MovieHeader", module)
           .addDecorator(story => (
             <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
           ))
           .add("default", () => <MovieHeader movie={sample} />);
-
+          storiesOf("Movie Details Page/RecommndedMovies", module)
+          .addDecorator(story => (
+            <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
+          ))
+          .add("default", () => <RecommendedCard movie={sample} />);
+        
           storiesOf("Movie Reviews/Preview", module)
           .addDecorator(story => (
             <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
