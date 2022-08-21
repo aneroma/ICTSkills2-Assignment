@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import "./filterControls.css";
 import { GenresContext } from '../../contexts/genresContext' 
 import { faRubleSign } from "@fortawesome/free-solid-svg-icons";
-import {Card,Flag,Container,Segment,Grid,Divider,Header,Icon} from 'semantic-ui-react'
-
+import {Menu,Input,Dropdown,Select,Grid,Divider,Header,Icon} from 'semantic-ui-react'
 
 const FilterControls = props => {
   const context = useContext(GenresContext);
@@ -20,6 +19,14 @@ const FilterControls = props => {
     handleChange(e, "genre", e.target.value);
   };
 
+  function GenreOptions(){
+    const genreOptions = []
+    context.genres.map(genre => {
+        genreOptions.push({key:genre.id,text:genre.name,value:genre.id})
+    })
+    return genreOptions;
+  };
+  
   return (
     <Menu id = "menu" >
 
