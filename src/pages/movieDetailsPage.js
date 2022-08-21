@@ -4,6 +4,7 @@ import PageTemplate from "../components/templateMoviePage";
 import {getMovie} from '../api/tmdb-api'
 import { Link, Route, withRouter } from "react-router-dom"
 import MovieReviews from "../components/movieReviews"
+import {Button, Container,Divider } from 'semantic-ui-react'
 
 const MoviePage = props => {
   const { id } = props.match.params;
