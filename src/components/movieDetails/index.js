@@ -1,110 +1,66 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./movieDetails.css";
-import { getRecommendations } from "../../api/tmdb-api";
-import Movie from "../recommendedCard/";
-import {Card,Flag,Container,Segment,Grid,Divider,Header,Icon} from 'semantic-ui-react'
 
-export default ({ movie}) => {
-  const [recommendeds, setRecommended] = useState([]);
-
-
-  useEffect(() => {
-    getRecommendations(movie.id).then(recommendeds => {
-      setRecommended(recommendeds);
-    });
-  }, []);
-
-
-  function sleep(ms){
-    while(ms < 100){
-      ms++;
-    }
-    reloadMovieCards();
-  }
-  const movieCards = recommendeds.map(m => (
-    <Movie key={m.id} movie={m}/>
-  ));
-
-  function reloadMovieCards(){
-    getRecommendations(movie.id).then(recommendeds => {
-      setRecommended(recommendeds);
-    });
-  }
-
+export default ({ movie }) => {
   return (
-    
     <>
-      
-    <Segment id="movieDetails">
-    <Grid columns={2} relaxed='very'>
-      <Grid.Column>
-      <Container>
-      <Header as='h2'><span>Overview</span></Header>
+      <h4>Overview</h4>
       <p>{movie.overview}</p>
-      </Container>
-      </Grid.Column>
-      <Grid.Column>
-      <table class="table table-dark">
-          <tbody>
-            <tr>
-              <th>Runtime <Icon name="time"></Icon></th>
-              <td>{movie.runtime} minutes</td>
-            </tr>
-            <tr>
-              <th>Release Date <Icon name="calendar alternate outline"></Icon></th>
-              <td>{movie.release_date}</td>
-            </tr>
-            <tr>
-              <th>Genres <Icon name="film"></Icon></th>
-              <td><ul>
-              {movie.genres.map(g => (
-                <li key={g.name}>
-                  {g.name}
-                </li>
-              ))}
-              </ul></td>
-            </tr>
-            <tr>
-              <th>Spoken Languages <Icon name="assistive listening systems"></Icon></th>
-              <td><ul>
-              {movie.spoken_languages.map(lang => (
-                <li key={lang.name}>
-                  {lang.name}
-                </li>
-              ))}
-            </ul></td>
-            </tr>
-            <tr>
-              <th>Production Companies <Icon name="factory"></Icon></th>
-              <td><ul>
-              {movie.production_companies.map(pdc => (
-                <li key={pdc.name}>
-                  {pdc.name}
-                </li>
-              ))}
-              </ul></td>
-            </tr>
-            <tr>
-              <th>Production Countries <Icon name="flag"></Icon></th>
-              <td><ul>
-              {movie.production_countries.map(pc => (
-                <li key={pc.name}>
-                  <Flag name={pc.iso_3166_1.toLowerCase()} />{pc.name}
-                </li>
-              ))}
-              </ul></td>
-            </tr>
-          </tbody>
-        </table>
-      </Grid.Column>
-    </Grid>
+      <ul className="list-group list-group-horizontal">
+        <li key="ruh" className="list-group-item list-group-item-dark">
+          Runtime (min.)
+        </li>
+        <li key="rut" className="list-group-item ">
+          {movie.runtime}
+        </li>
+        <li key="rdh" className="list-group-item list-group-item-dark">
+          Release Date
+        </li>
+        <li key="rdv" className="list-group-item ">
+          {movie.release_date}
+        </li>
 
-    <Divider vertical><span>Details</span></Divider>
-    </Segment>
-    <Divider horizontal><span><h2>Similar Movies</h2></span></Divider>
-    {<Card.Group onClick={sleep(100)}>{movieCards}</Card.Group>}
-
+      </ul>
+      <ul className="list-group list-group-horizontal">
+        <li key="gh" className="list-group-item list-group-item-dark">
+          Genres
+        </li>
+        {movie.genres.map(g => (
+          <li key={g.name} className="list-group-item">
+            {g.name}
+          </li>
+        ))}
+      </ul>
+      <ul className="list-group list-group-horizontal">
+        <li key="slh" className="list-group-item list-group-item-dark">
+          Spoken Languages
+        </li>
+        {movie.spoken_languages.map(lang => (
+          <li key={lang.name} className="list-group-item">
+            {lang.name}
+          </li>
+        ))}
+      </ul>
+      <ul className="list-group list-group-horizontal">
+        <li key="pch" className="list-group-item list-group-item-dark">
+          Production Companies
+        </li>
+        {movie.production_companies.map(pc => (
+          <li key={pc.name} className="list-group-item">
+            {pc.name}
+          </li>
+        ))}
+      </ul>
+      <ul className="list-group list-group-horizontal">
+        <li key="pch" className="list-group-item list-group-item-dark">
+          Production Countries
+        </li>
+        {movie.production_countries.map(pc => (
+          <li key={pc.name} className="list-group-item">
+            {pc.name}
+          </li>
+        ))}
+      </ul>
     </>
-  )};
-
-
+  );
+};

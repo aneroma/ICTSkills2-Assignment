@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
 import { getMovieReviews } from "../../api/tmdb-api";
 import { excerpt } from "../../util";
 
@@ -11,9 +10,9 @@ export default ({ movie }) => {
     getMovieReviews(movie.id).then(reviews => {
       setReviews(reviews);
     });
-  }, []);
+  }, ); //removed [] from before the );
   return (
-    <table style={{color:"white"}} className="table table-dark table-bordered table-hover">
+    <table className="table table-striped table-bordered table-hover">
       <thead>
         <tr>
           <th scope="col">Author</th>
@@ -38,11 +37,7 @@ export default ({ movie }) => {
                       }
                     }}
                   >
-                  <Button inverted color="orange">
-                  
                     Full Review
-                  
-                  </Button>
                   </Link>
                 </td>
               </tr>

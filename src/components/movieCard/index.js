@@ -1,14 +1,16 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "./movieCard.css";
 import "../../globals/fontawesome";
-import {Card,Icon, Image, Rating } from 'semantic-ui-react'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const MovieCard = ({movie, action}) => {
+const MovieCard = ({movie, action}) => { //design to print to the screen
 
   return (
-    <Card id="movieDisplay">
+    <div className="col-sm-3">
+      <div className="card  bg-white">
       <Link to={`/movies/${movie.id}`}>
-        <Image size='medium' rounded 
+        <img
           className="card-img-tag center "
           alt={movie.title}
           src={
@@ -18,21 +20,22 @@ const MovieCard = ({movie, action}) => {
           }
         />
         </Link>
-        <Card.Content>
-          <Card.Header id="movieDisplayHeader"><h4 className="card-title ">{movie.title}</h4></Card.Header>
-          <Card.Description>
-          <Icon name='calendar alternate outline' color = 'green'/>
+        <div className="card-body">
+          <h4 className="card-title ">{movie.title}</h4>
+          <p>
+            <FontAwesomeIcon icon={["fas", "calendar"]} />
             <span> {movie.release_date}</span>
-
-          
-            <span> <Rating disabled icon='star' defaultRating={movie.vote_average} maxRating={10} />
-          </span>
-            <br></br><br></br>
-            {action(movie)}
-          </Card.Description>
-        </Card.Content>
-
-    </Card>
+          </p>
+          <p>
+            <FontAwesomeIcon icon={["fas", "star"]} />
+            <span> {movie.vote_average}</span>
+          </p>
+        </div>
+        <div className="card-footer">
+           {action(movie)}
+        </div>
+      </div>
+    </div>
   );
 };
 

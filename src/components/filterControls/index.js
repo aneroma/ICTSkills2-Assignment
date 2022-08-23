@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import "./filterControls.css";
 import { GenresContext } from '../../contexts/genresContext' 
-import {Menu,Input,Dropdown,Select,Grid,Divider,Header,Icon} from 'semantic-ui-react'
 
 const FilterControls = props => {
   const context = useContext(GenresContext);
@@ -9,8 +8,7 @@ const FilterControls = props => {
   const handleChange = (e, type, value) => {
     e.preventDefault();
     props.onUserInput(type, value);
-  }; // filetring of movie list
-
+  };
   const handleTextChange = e => {
     handleChange(e, "name", e.target.value);
   };
@@ -19,40 +17,28 @@ const FilterControls = props => {
   };
 
   return (
-    <Menu id = "menu" >
-
-    <Menu.Item id = "menuitem">
-      <Icon name="filter"/>
-    </Menu.Item>
-
-    <Menu.Item id = "menuitem">
-      Filter By:
-    </Menu.Item>
-    <Menu.Item id = "menuitem">
-      Name
-    </Menu.Item>
-
-    <Menu.Item id = "menuitem">
-    <Input  type="text" icon='film' onChange={handleTextChange} iconPosition='left' placeholder='Search movies...' />
-     
-    </Menu.Item>
-
-    <Menu.Item id = "menuitem">
-      Genres
-    </Menu.Item>
-
-    <Menu.Item id = "menuitem">
-    <select id="genre" onChange={handleGenreChange}>
-        {context.genres.map(genre => {
-          return (
-            <option key={genre.id} value={genre.id}>
-              {genre.name}
-            </option>
-          );
-        })}
-      </select>
-    </Menu.Item>
-</Menu>
+    <div className="row bg-warning">
+      <div className="col-md-12">
+        <h4>
+          <span>List Filtering:</span>
+          <input
+            type="text"
+            placeholder="Title Search"
+            onChange={handleTextChange}
+          />
+          <span>Genre:</span>
+          <select id="genre" onChange={handleGenreChange}>
+            {context.genres.map(genre => {
+              return (
+                <option key={genre.id} value={genre.id}>
+                  {genre.name}
+                </option>
+              );
+            })}
+          </select>
+        </h4>
+      </div>
+    </div>
   );
 };
 

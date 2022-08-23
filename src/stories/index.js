@@ -1,21 +1,12 @@
 import React from "react";
-import { storiesOf } from "@storybook/react";
-import "../node_modules/bootstrap/dist/css/bootstrap.css";
-import MovieCard from "../src/components/movieCard";
 import FilterControls from "../src/components/filterControls";
 import MoviesHeader from "../src/components/headerMovieList";
+import MovieCard from "../src/components/movieCard";
 import MovieList from "../src/components/movieList";
 import MovieDetails from "../src/components/movieDetails";
-import MovieHeader from "../src/components/headerMovie";
-import AddFavoriteButton from "../src/components/buttons/addToFavorites";
-import { MemoryRouter } from "react-router";
-import GenresContextProvider from "../src/contexts/genresContext";
-import { action } from "@storybook/addon-actions";
-import MovieReviews from "../src/components/movieReviews";
-import RecommendedCard from "../src/components/recommendedCard";
-import Actors from "../src/components/actorsView";
-import "semantic-ui-css/semantic.min.css";
-import {Card,Icon, Image,Reveal, Segment,Container,Header,Button,Divider } from 'semantic-ui-react'
+import MovieHeader from '../src/components/headerMovie'
+import { storiesOf } from "@storybook/react";
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
 
 const sample = {
   adult: false,
@@ -99,84 +90,29 @@ const sample = {
 };
 
 storiesOf("Home Page/MovieCard", module)
-  .addDecorator(story => (
-    <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
-  ))
-  .add("default", () => (
-    <MovieCard
-      movie={sample}
-      action={movie => <button className="btn w-100 btn-primary">Test</button>}
-    />
-  ))
+  .add("default", () => <MovieCard movie={sample} />)
   .add("exception", () => {
     const sampleNoPoster = { ...sample, poster_path: undefined };
-    return (
-      <MovieCard
-        movie={sampleNoPoster}
-        action={movie => (
-          <button className="btn w-100 btn-primary">Test</button>
-        )}
-      />
-    );
+    return <MovieCard movie={sampleNoPoster} />;
   });
 
-storiesOf("Home Page/FilterControls", module)
-  .addDecorator(story => (
-    <GenresContextProvider>{story()}</GenresContextProvider>
-  ))
-  .add("default", () => (
-    <FilterControls onUserInput={action("button-click")} numMovies={10} />
-  ));
+  storiesOf("Home Page/FilterControls", module)
+  .add("default", () => <FilterControls /> )
 
   storiesOf("Home Page/Header", module).add("default", () => (
-    <MoviesHeader title="All Movies" numMovies={10} />
+    <MoviesHeader numMovies={10} />
   ));
-
-storiesOf("Home Page/MovieList", module)
-  .addDecorator(story => (
-    <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
-  ))
+  
+  storiesOf("Home Page/MovieList", module)
   .add("default", () => {
-    const movies = [sample, sample, sample, sample, sample];
-    return (
-      <MovieList
-        movies={movies}
-        action={movie => (
-          <button className="btn w-100 btn-primary">Test</button>
-        )}
-      />
-    );
-  });
+    const movies= [sample, sample, sample, sample, sample]
+    return <MovieList movies={movies} />
+});
 
-  storiesOf("Movie Details Page/MovieDetails", module).
-  add("default", () => (
-    <MemoryRouter><MovieDetails movie={sample} /></MemoryRouter>
-  ));
+storiesOf("Movie Details Page/MovieDetails", module).add("default", () => (
+  <MovieDetails movie={sample} />
+));
 
-  storiesOf("Movie Details Page/MovieHeader", module)
-  .addDecorator(story => (
-    <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
-  ))
-  .add("default", () => <MovieHeader movie={sample} />);
-
-  storiesOf("Movie Details Page/RecommndedMovies", module)
-  .addDecorator(story => (
-    <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
-  ))
-  .add("default", () => <RecommendedCard movie={sample} />);
-
-  storiesOf("Movie Details Page/Actors", module)
-  .addDecorator(story => (
-    <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
-  ))
-  .add("default", () => <Actors movie={sample} />);
-
-
-  storiesOf("Movie Reviews/Preview", module)
-  .addDecorator(story => (
-    <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
-  ))
-  .add("default", () => <MovieReviews movie={sample} />);
-
-  
-  
+storiesOf("Movie Details Page/MovieHeader", module).add("default", () => (
+  <MovieHeader movie={sample} />
+));

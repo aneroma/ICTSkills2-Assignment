@@ -3,6 +3,7 @@ import {getMovie} from '../api/tmdb-api'
 
 const useMovie = id => {
   const [movie, setMovie] = useState(null);
+  // eslint-disable-next-line 
   useEffect(() => {
     getMovie(id).then(movie => {
       setMovie(movie);
@@ -11,4 +12,4 @@ const useMovie = id => {
   return [movie, setMovie];
 };
 
-export default useMovie 
+export default useMovie

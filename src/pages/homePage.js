@@ -9,9 +9,7 @@ const MovieListPage = () => {
   const movies = context.movies.filter((m) => {  // New
     return !("favorite" in m);
   });
-
-  
-  return (
+return (
     <>
       <PageTemplate
       title="No. Movies"

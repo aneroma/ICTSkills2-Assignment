@@ -1,23 +1,27 @@
-import React, { useContext } from "react";
-import PageTemplate from '../components/templateMovieListPage'
-import {MoviesContext} from '../contexts/moviesContext'
-import AddToWatchLaterTopRatedMovies from '../components/buttons/addToWatchLaterTopRatedMovies'
+  
+import React, {useContext} from "react";
+import MovieListPageTemplate from "../components/templateMovieListPage";
+//import AddReviewButton from '../components/buttons/addReview';
+import {MoviesContext} from '../contexts/moviesContext';
 
-const MovieListPage = () => {
+
+const TopRatedMoviesPage = () => {
   const context = useContext(MoviesContext);
-  const movies = context.toprated.filter((m) => {  // New
-    return !("watchlater" in m);
+  const toprated = context.toprated.filter((m) => {
+    return !("favorites" in m);
   });
 
   return (
-    <PageTemplate
-      title="Top Rated Movies"
-      movies={movies}  /* Changed */
-      action={(movie) => {
-        return <AddToWatchLaterTopRatedMovies movie={movie} />;
+    <MovieListPageTemplate
+      movies={toprated}
+      title={" Top Rated Movies"}
+      //action={movie => <AddReviewButton movie={movie} />}
+      action={(toprated) => {
+        // return <AddToFavoritesButton movie={toprated} /> 
       }}
+
     />
   );
 };
 
-export default MovieListPage;
+export default TopRatedMoviesPage;

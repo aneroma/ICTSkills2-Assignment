@@ -1,9 +1,10 @@
+import React from "react";
+import { Link, Route, withRouter } from "react-router-dom";
 import MovieDetails from "../components/movieDetails";
 import PageTemplate from "../components/templateMoviePage";
 import MovieReviews from "../components/movieReviews";
-import ActorsView from "../components/actorsView";
 import useMovie from "../hooks/useMovie";
-import {Button, Container,Divider } from 'semantic-ui-react'
+//import movieCredits from "../components/movieCredits"; //added 9/12
 
 const MoviePage = props => {
   const { id } = props.match.params;
@@ -15,32 +16,55 @@ const MoviePage = props => {
         <PageTemplate movie={movie}>
           <MovieDetails movie={movie} />
         </PageTemplate>
-        <div className="row">
-        <ActorsView movie={movie}  {...props}/>
-          <Container textAlign="center">
-          <Divider horizontal><span><h2>Reviews</h2></span></Divider>
-            {!props.history.location.pathname.endsWith("/reviews") ? (
-              
+        
+
+        
+        {/* <div className="row"> 
+          <div className="col-12 "> 
+            {!props.history.location.pathname.endsWith("/credits") ? (
               <Link
-                to={`/movies/${id}/reviews`}
+                className="btn btn-primary btn-block active"
+                to={`/movies/${id}/credits`}
               >
-              <Button inverted color='olive'>
-              Show Reviews (Extracts)
-              </Button>
+                Show Credits (Cast)
               </Link>
-              
             ) : (
               <Link
+                className="btn btn-primary btn-block active"
                 to={`/movies/${id}`}
               >
-              <Button inverted color='olive'>
-                Hide Reviews 
-              </Button>
+                Hide Credits 
               </Link>
             )}
-          </Container>
+          </div>
+        </div> */}
+        
+
+
+        <div className="row">
+          <div className="col-12 ">
+            {!props.history.location.pathname.endsWith("/reviews") ? (
+              <Link
+                className="btn btn-primary btn-block active"
+                to={`/movies/${id}/reviews`}
+              >
+                Show Reviews (Extracts)
+              </Link>
+            ) : (
+              <Link
+                className="btn btn-primary btn-block active"
+                to={`/movies/${id}`}
+              >
+                Hide Reviews 
+              </Link>
+            )}
+          </div>
         </div>
         <Route
+        //added this 9/12.........................
+         // path={`/movies/:id/credits`}
+        //  render={props => <movieCredits movie={movie} {...props} />}
+        //.....................................
           path={`/movies/:id/reviews`}
           render={props => <MovieReviews movie={movie} {...props} />}
         />
@@ -50,5 +74,7 @@ const MoviePage = props => {
     )}
   </>
   );
+
 };
+
 export default withRouter(MoviePage);

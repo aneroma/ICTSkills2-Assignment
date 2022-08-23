@@ -1,24 +1,36 @@
-
-import React, { useContext } from "react";
+import React, { useState, useEffect } from "react";
+import StubAPI from "../api/stubAPI";
 import PageTemplate from '../components/templateMovieListPage'
-import {MoviesContext} from '../contexts/moviesContext'
-import AddToWatchLater from '../components/buttons/addToWatchLater'
+import { getUpcomingMovies } from "../api/tmdb-api";
 
 const MovieListPage = () => {
-  const context = useContext(MoviesContext);
-  const movies = context.upcoming.filter((m) => {  // New
-    return !("watchlater" in m);
-  });
+  const [movies, setMovies] = useState([]);
+  useEffect(() => {
+    getUpcomingMovies().then(movies => { //finds the moviesd 
+      setMovies(movies); //stores the movies
+    });
+  }, []);
+
+  const addToFavorites = movieId => {
+    setMovies(movies => {
+      const index = movies.map(m => m.id).indexOf(movieId);
+      StubAPI.add(movies[index]);
+      let newMoviesState = [...movies]
+      newMoviesState.splice(index, 1);
+      return newMoviesState;
+    });
+  };
 
   return (
-      
-    <PageTemplate
-      title="Up Coming Movies"
-      movies={movies}  /* Changed */
-      action={(movie) => {
-        return <AddToWatchLater movie={movie} />;
-      }}
-    />
+      <PageTemplate //used to build page
+        title='Upcoming Movies'
+        movies={movies} //passing the array list 
+        buttonHandler={addToFavorites}
+        action={(movies) => {
+          // return <AddToFavoritesButton movie={toprated} /> 
+        }}
+      />
   );
 };
+
 export default MovieListPage;
